@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시민의회경기포럼 - 참시민 민주주의의 새로운 장</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Noto Sans KR & Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0f172a',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        /* 더모임 스타일 Megamenu Animations */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .dropdown-wrapper:hover .dropdown-menu,
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphic elements */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #0369a1 60%, #0284c7 100%);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- Top Notice Bar -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800 hidden md:block">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span><i class="fa-solid fa-bullhorn text-sky-400 mr-2"></i>[공지] 2026 경기도 31개 시·군 시민의회 참가자 모집 중</span>
+                <span class="text-slate-600">|</span>
+                <span>전국연대: 시민의회 전국포럼 (caforum.kr)</span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <a href="#about" class="hover:text-white transition">포럼소개</a>
+                <a href="#notice" class="hover:text-white transition">공지사항</a>
+                <a href="#contact" class="hover:text-white transition">오시는 길</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-sky-400 flex items-center justify-center text-white font-black text-xl shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
+                        시
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-lg leading-tight tracking-tight text-slate-900 group-hover:text-sky-600 transition">시민의회경기포럼</span>
+                        <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase">GG Citizens' Assembly Forum</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Menu ( 더모임 스타일 메가드롭다운 ) -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    
+                    <!-- Menu 1: 포럼 소개 -->
+                    <div class="dropdown-wrapper relative px-3 py-6">
+                        <button class="flex items-center gap-1 font-semibold text-slate-700 hover:text-sky-600 transition py-1 text-base">
+                            포럼소개
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <!-- Mega Submenu -->
+                        <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 w-[520px] bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 grid grid-cols-2 gap-4 z-50">
+                            <a href="#about" class="p-3.5 rounded-xl hover:bg-sky-50 transition group flex items-start gap-3">
+                                <div class="p-2.5 bg-sky-100 rounded-lg text-sky-600 group-hover:bg-sky-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-landmark text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-slate-800 group-hover:text-sky-600 text-sm">포럼 인사말</div>
+                                    <p class="text-xs text-slate-500 mt-0.5">경기포럼의 취지와 비전 안내</p>
+                                </div>
+                            </a>
+                            <a href="#about" class="p-3.5 rounded-xl hover:bg-sky-50 transition group flex items-start gap-3">
+                                <div class="p-2.5 bg-emerald-100 rounded-lg text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-people-roof text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-slate-800 group-hover:text-sky-600 text-sm">조직 및 운영</div>
+                                    <p class="text-xs text-slate-500 mt-0.5">자발적 참여와 수평적 구조</p>
+                                </div>
+                            </a>
+                            <a href="#about" class="p-3.5 rounded-xl hover:bg-sky-50 transition group flex items-start gap-3">
+                                <div class="p-2.5 bg-purple-100 rounded-lg text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-scale-balanced text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-slate-800 group-hover:text-sky-600 text-sm">정관 및 선언문</div>
+                                    <p class="text-xs text-slate-500 mt-0.5">포럼이 지키는 핵심 가치</p>
+                                </div>
+                            </a>
+                            <a href="#contact" class="p-3.5 rounded-xl hover:bg-sky-50 transition group flex items-start gap-3">
+                                <div class="p-2.5 bg-amber-100 rounded-lg text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition">
+                                    <i class="fa-solid fa-map-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-slate-800 group-hover:text-sky-600 text-sm">오시는 길</div>
+                                    <p class="text-xs text-slate-500 mt-0.5">포럼 사무국 위치 안내</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Menu 2: 모임/참여 (더모임 핵심 벤치마킹) -->
+                    <div class="dropdown-wrapper relative px-3 py-6">
+                        <button class="flex items-center gap-1 font-semibold text-slate-700 hover:text-sky-600 transition py-1 text-base">
+                            모임 & 참여
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700 ml-1">HOT</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 w-[640px] bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 z-50">
+                            <div class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-3 px-2">진행 중인 모임 및 토론</div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <a href="#meetings" class="p-3.5 rounded-xl border border-slate-100 hover:border-sky-300 hover:bg-sky-50/50 transition flex items-start gap-3 group">
+                                    <div class="w-10 h-10 rounded-lg bg-sky-500 text-white flex items-center justify-center font-bold text-sm shrink-0">
+                                        모집
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-800 group-hover:text-sky-600 text-sm line-clamp-1">31개 시/군 시민의회 참여자</div>
+                                        <p class="text-xs text-slate-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i>상시 모집 중</p>
+                                        <div class="mt-2 text-[11px] font-semibold text-sky-600">신청하기 &rarr;</div>
+                                    </div>
+                                </a>
+                                <a href="#meetings" class="p-3.5 rounded-xl border border-slate-100 hover:border-sky-300 hover:bg-sky-50/50 transition flex items-start gap-3 group">
+                                    <div class="w-10 h-10 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-sm shrink-0">
+                                        워크숍
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-800 group-hover:text-sky-600 text-sm line-clamp-1">퍼실리테이터 워크숍</div>
+                                        <p class="text-xs text-slate-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i>정기 매월 3째주</p>
+                                        <div class="mt-2 text-[11px] font-semibold text-sky-600">자세히 보기 &rarr;</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                                <span><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> 시민이 직접 제안하는 새로운 의제 모임</span>
+                                <a href="#meetings" class="font-bold text-sky-600 hover:underline">전체 모임 보기 +</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 3: 이슈 & 피플 -->
+                    <div class="dropdown-wrapper relative px-3 py-6">
+                        <button class="flex items-center gap-1 font-semibold text-slate-700 hover:text-sky-600 transition py-1 text-base">
+                            이슈 & 담론
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 w-[480px] bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 z-50">
+                            <div class="space-y-2">
+                                <a href="#issues" class="block p-3 rounded-xl hover:bg-slate-50 transition group">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-bold text-slate-800 group-hover:text-sky-600 text-sm">시민의회 칼럼 및 리포트</span>
+                                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">최신</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-1">대의제 민주주의의 한계를 극복하는 혁신적 대안</p>
+                                </a>
+                                <a href="#issues" class="block p-3 rounded-xl hover:bg-slate-50 transition group">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-bold text-slate-800 group-hover:text-sky-600 text-sm">주민주권과 시민의회 토론회</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-1">경기도 시군별 주민자치 현장의 목소리와 연구 자료</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 4: 활동소식 & 공지 -->
+                    <div class="dropdown-wrapper relative px-3 py-6">
+                        <button class="flex items-center gap-1 font-semibold text-slate-700 hover:text-sky-600 transition py-1 text-base">
+                            소식알림
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 w-[360px] bg-white rounded-2xl shadow-2xl border border-slate-100 p-5 z-50">
+                            <a href="#notice" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition">
+                                <div class="w-8 h-8 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center font-bold text-xs"><i class="fa-regular fa-bell"></i></div>
+                                <div>
+                                    <div class="text-sm font-bold text-slate-800">공지사항</div>
+                                    <div class="text-xs text-slate-500">포럼 공식 공지 및 회원 안내</div>
+                                </div>
+                            </a>
+                            <a href="#notice" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition mt-1">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs"><i class="fa-regular fa-newspaper"></i></div>
+                                <div>
+                                    <div class="text-sm font-bold text-slate-800">언론 보도</div>
+                                    <div class="text-xs text-slate-500">언론에 소개된 시민의회경기포럼</div>
+                                </div>
+                            </a>
+                            <a href="#notice" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition mt-1">
+                                <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-images"></i></div>
+                                <div>
+                                    <div class="text-sm font-bold text-slate-800">활동 갤러리</div>
+                                    <div class="text-xs text-slate-500">현장 워크숍 및 포럼 사진 모음</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </nav>
+
+                <!-- CTA Button Area -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button onclick="openModal('joinModal')" class="bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>시민의회 참여신청</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex lg:hidden items-center">
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <div class="p-2 text-xs font-bold text-slate-400 uppercase tracking-wider">메뉴 Navigation</div>
+            <a href="#about" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-sky-50 hover:text-sky-600">포럼소개</a>
+            <a href="#meetings" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-sky-50 hover:text-sky-600 flex justify-between items-center">
+                <span>모임 & 참여</span>
+                <span class="text-xs bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">모집중</span>
+            </a>
+            <a href="#issues" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-sky-50 hover:text-sky-600">이슈 & 담론</a>
+            <a href="#notice" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-sky-50 hover:text-sky-600">소식알림</a>
+            <a href="#contact" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-sky-50 hover:text-sky-600">오시는 길</a>
+            <div class="pt-3 border-t border-slate-100">
+                <button onclick="openModal('joinModal')" class="w-full bg-sky-600 text-white font-bold py-3 rounded-xl shadow-md text-center">
+                    시민의회 참여신청하기
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient text-white overflow-hidden py-24 lg:py-32">
+        <!-- Abstract Background Pattern Overlay -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-sky-200 text-xs sm:text-sm font-medium backdrop-blur-md">
+                        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                        독립적 자발적 시민 숙의 민주주의 플랫폼
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none">
+                        시민의 힘으로 완성하는<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-200 via-sky-300 to-amber-300">
+                            경기도 민주주의의 대안
+                        </span>
+                    </h1>
+                    
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
+                        특정 정당 및 정치세력과 무관한 독립적 시민단체입니다.<br class="hidden sm:inline">
+                        경기도 31개 시·군 주민이 주인이 되어 우리 사회의 대안과 담론을 함께 만듭니다.
+                    </p>
+
+                    <!-- CTAs & Stats -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <button onclick="openModal('joinModal')" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-extrabold rounded-2xl shadow-xl shadow-amber-500/20 hover:scale-105 transition-all text-center">
+                            시민의원 참가 신청하기
+                        </button>
+                        <a href="#about" class="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold rounded-2xl backdrop-blur-md transition text-center">
+                            포럼 소개 둘러보기
+                        </a>
+                    </div>
+
+                    <!-- Counter Badges -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-white">31개</div>
+                            <div class="text-xs text-slate-300 mt-1">경기도 시/군 연대</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">1,200+</div>
+                            <div class="text-xs text-slate-300 mt-1">누적 시민 참여자</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-sky-300">100%</div>
+                            <div class="text-xs text-slate-300 mt-1">자발적 수평 운영</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Card Graphic -->
+                <div class="lg:col-span-5">
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 text-slate-800 shadow-2xl relative">
+                        <div class="flex items-center justify-between border-b border-slate-200/60 pb-4 mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                            </div>
+                            <span class="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-full">실시간 모임 현황</span>
+                        </div>
+
+                        <!-- Card Body Item 1 -->
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-sky-100 text-sky-700">시민의회 모집</span>
+                                    <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i>D-12</span>
+                                </div>
+                                <h4 class="font-bold text-slate-900 text-base">경기도 31개 시·군 시민의회 참가자 모집</h4>
+                                <p class="text-xs text-slate-500 mt-1 line-clamp-2">지역사회의 정책 대안을 모색하고 주민 주권을 실현할 참가자를 기다립니다.</p>
+                                <div class="mt-3 flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-slate-50">
+                                    <span><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>경기도 전역</span>
+                                    <span class="font-semibold text-sky-600">30명 정원 모집중</span>
+                                </div>
+                            </div>
+
+                            <!-- Card Body Item 2 -->
+                            <div class="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-100 text-emerald-700">워크숍 일정</span>
+                                    <span class="text-xs text-slate-400">접수마감 임박</span>
+                                </div>
+                                <h4 class="font-bold text-slate-900 text-base">시민의회 퍼실리테이터 워크숍</h4>
+                                <div class="mt-2 flex items-center gap-2 text-xs text-slate-500">
+                                    <span class="bg-slate-100 px-2 py-0.5 rounded">일시</span> 2026.11.15(토) 14:00
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 text-center">
+                            <a href="#meetings" class="inline-flex items-center text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                                더 많은 참가 모임 살펴보기 <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-sky-600 font-bold text-sm tracking-wider uppercase">ABOUT US</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    시민이 만드는 새로운 민주주의의 길
+                </h2>
+                <p class="text-slate-600 mt-4 leading-relaxed">
+                    선거제와 대의제의 한계를 보완하고, 주민이 직접 정책과 대안을 토론하고 결정하는 숙의형 시민의회 모델을 경기도에 정착시킵니다.
+                </p>
+            </div>
+
+            <!-- 3 Core Values Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-600 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-sky-600/20">
+                        <i class="fa-solid fa-handshake-angle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">독립성과 자율성</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        특정 정당이나 이익집단의 영향력에서 벗어나 순수한 시민들의 자발적인 자발적 의지와 수평적 운영으로 동작합니다.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">숙의 기반 토론</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        충분한 정보 제공과 다양한 계층의 숙의(Deliberation) 과정을 거쳐 사회적 합의와 성숙한 민주적 결론을 도출합니다.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl mb-6 shadow-lg shadow-emerald-600/20">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">전국 연대 및 협력</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        시민의회 전국포럼(caforum.kr)과의 긴밀한 네트워크를 통해 경기도를 넘어 전국적인 민주주의 제도화를 견인합니다.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Meetings Section (더모임 스타일 메인 콘텐츠 카드 목록) -->
+    <section id="meetings" class="py-20 bg-slate-50 border-y border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-sky-600 font-bold text-sm tracking-wider uppercase">PARTICIPATION & MEETINGS</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-2">참여 및 모임 신청</h2>
+                    <p class="text-slate-600 mt-2 text-sm">경기도민이라면 누구나 자유롭게 소모임과 의회 토론에 참여하실 수 있습니다.</p>
+                </div>
+                <!-- Filter Tabs -->
+                <div class="mt-6 md:mt-0 flex gap-2 overflow-x-auto pb-2 md:pb-0">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white shadow-sm whitespace-nowrap">전체보기</button>
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition whitespace-nowrap">시민의회 모집</button>
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition whitespace-nowrap">워크숍/강좌</button>
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition whitespace-nowrap">지역 토론회</button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Meeting Card 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="p-6 flex-1">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 bg-sky-100 text-sky-700 font-bold text-xs rounded-full">모집중</span>
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-users mr-1"></i>정원 30명</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-sky-600 transition mb-2">
+                            경기도 31개 시/군 시민의회 참여자 모집
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-4">
+                            경기지역 각 시군에서 주민주권 실현을 위한 시민의회 구성을 함께할 시민들을 기다립니다.
+                        </p>
+                        <div class="space-y-1.5 text-xs text-slate-500 pt-3 border-t border-slate-100">
+                            <div><i class="fa-regular fa-calendar text-slate-400 w-4"></i> 일정: 상시 모집</div>
+                            <div><i class="fa-solid fa-location-dot text-slate-400 w-4"></i> 장소: 경기도 각 시군 커뮤니티 공간</div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-500">무료 참석</span>
+                        <button onclick="openModal('joinModal')" class="text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                            신청하기 &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meeting Card 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="p-6 flex-1">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 font-bold text-xs rounded-full">워크숍</span>
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-users mr-1"></i>정원 15명</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 hover:text-sky-600 transition mb-2">
+                            시민의회 퍼실리테이터 현장 워크숍
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-4">
+                            원활한 시민 토론과 숙의 과정을 이끌어갈 퍼실리테이터 양성을 위한 실습 중심 워크숍입니다.
+                        </p>
+                        <div class="space-y-1.5 text-xs text-slate-500 pt-3 border-t border-slate-100">
+                            <div><i class="fa-regular fa-calendar text-slate-400 w-4"></i> 일정: 2026.11.15 (토) 14:00</div>
+                            <div><i class="fa-solid fa-location-dot text-slate-400 w-4"></i> 장소: 수원 시민사회센터 회의실</div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-500">사전 등록 필수</span>
+                        <button onclick="openModal('joinModal')" class="text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                            신청하기 &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meeting Card 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition duration-300 flex flex-col">
+                    <div class="p-6 flex-1">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 font-bold text-xs rounded-full">좌담회</span>
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-users mr-1"></i>온라인/오프라인</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 hover:text-sky-600 transition mb-2">
+                            주민주권과 시민의회 제도화 토론회
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed line-clamp-2 mb-4">
+                            지방자치와 연계한 시민의회 법제화 방향을 토론하고 사례를 발표하는 대담마당입니다.
+                        </p>
+                        <div class="space-y-1.5 text-xs text-slate-500 pt-3 border-t border-slate-100">
+                            <div><i class="fa-regular fa-calendar text-slate-400 w-4"></i> 일정: 2026.12.02 (수) 16:00</div>
+                            <div><i class="fa-solid fa-location-dot text-slate-400 w-4"></i> 장소: Zoom 및 유튜브 라이브</div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-500">누구나 참여가능</span>
+                        <button onclick="openModal('joinModal')" class="text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                            신청하기 &rarr;
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Issues & Resources Section -->
+    <section id="issues" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-12">
+                <span class="text-sky-600 font-bold text-sm tracking-wider uppercase">ISSUES & ARCHIVE</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">이슈 & 담론 자료실</h2>
+                <p class="text-slate-600 mt-2 text-sm">시민의회 도입 및 주민주권에 관한 주요 연구 자료와 토론 리포트입니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Issue Item 1 -->
+                <div class="p-6 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-lg transition flex gap-5 items-start">
+                    <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold shrink-0 text-xl">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold text-sky-600">정책칼럼</span>
+                            <span class="text-xs text-slate-400">• 2026.03.16</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-lg hover:text-sky-600 transition cursor-pointer">
+                            "새 술은 새 부대에" : 혁신적 민주주의와 시민의회 제도화
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                            대의제 정치의 한계를 극복하고 사회적 대립을 완화하는 대안으로서의 시민의회 필요성을 심층 다룹니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Issue Item 2 -->
+                <div class="p-6 rounded-2xl border border-slate-200 hover:border-sky-300 hover:shadow-lg transition flex gap-5 items-start">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0 text-xl">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold text-emerald-600">현장보고서</span>
+                            <span class="text-xs text-slate-400">• 2026.04.20</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-lg hover:text-sky-600 transition cursor-pointer">
+                            경기도 마을 단위 주민자치와 시민의회 연결 모델 연구
+                        </h4>
+                        <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                            광명시 등 경기 주요 지역 주민자치회 연계 사례를 통해 지역 맞춤형 도입 방안을 제시합니다.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Notice & News Section -->
+    <section id="notice" class="py-16 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Notice List -->
+                <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-bullhorn text-sky-600"></i> 공지사항 및 활동소식
+                        </h3>
+                        <a href="#" class="text-xs font-bold text-sky-600 hover:underline">전체보기 +</a>
+                    </div>
+                    
+                    <div class="divide-y divide-slate-100">
+                        <a href="#" class="py-3.5 flex justify-between items-center hover:bg-slate-50 px-2 rounded-lg transition">
+                            <span class="text-sm text-slate-800 font-medium truncate max-w-md">경기도 31개 시/군 시민의회 참여자 신청 양식 안내</span>
+                            <span class="text-xs text-slate-400 shrink-0 ml-4">2026.08.20</span>
+                        </a>
+                        <a href="#" class="py-3.5 flex justify-between items-center hover:bg-slate-50 px-2 rounded-lg transition">
+                            <span class="text-sm text-slate-800 font-medium truncate max-w-md">국민주도개헌 및 시민의회 좌담회 온라인 서명운동</span>
+                            <span class="text-xs text-slate-400 shrink-0 ml-4">2026.07.10</span>
+                        </a>
+                        <a href="#" class="py-3.5 flex justify-between items-center hover:bg-slate-50 px-2 rounded-lg transition">
+                            <span class="text-sm text-slate-800 font-medium truncate max-w-md">시민의회 전국포럼 연대 워크숍 결과 보고</span>
+                            <span class="text-xs text-slate-400 shrink-0 ml-4">2026.05.12</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact & Support Widget -->
+                <div id="contact" class="bg-gradient-to-br from-slate-900 to-sky-950 text-white p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-sky-400 tracking-wider uppercase">CONTACT & SUPPORT</span>
+                        <h3 class="text-xl font-extrabold mt-1 mb-4">함께 만드는 변화</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                            시민의회경기포럼은 자발적 후원과 시민들의 자발적 참여로 운영됩니다. 언제든지 문의해주세요.
+                        </p>
+                        
+                        <div class="space-y-3 text-xs text-slate-300">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-phone text-sky-400 w-4"></i>
+                                <span>02-3272-2353 (문자 문의 가능)</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-envelope text-sky-400 w-4"></i>
+                                <span>contact@ggcaforum.kr</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-globe text-sky-400 w-4"></i>
+                                <span>전국포럼: caforum.kr</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-800 mt-6">
+                        <button onclick="openModal('joinModal')" class="w-full py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl text-xs transition">
+                            후원 및 회 원가입 문의
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-sm">시</div>
+                    <div>
+                        <div class="font-bold text-white text-sm">시민의회경기포럼</div>
+                        <div class="text-[11px] text-slate-500">독립적 시민 숙의 민주주의 플랫폼</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-6 text-slate-400">
+                    <a href="#about" class="hover:text-white transition">포럼소개</a>
+                    <a href="#meetings" class="hover:text-white transition">모임참여</a>
+                    <a href="#issues" class="hover:text-white transition">이슈담론</a>
+                    <a href="#notice" class="hover:text-white transition">공지사항</a>
+                    <a href="https://caforum.kr/" target="_blank" class="hover:text-sky-400 transition">시민의회전국포럼 ↗</a>
+                </div>
+
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between text-slate-500">
+                <p>© 2026 시민의회경기포럼 (GGCA Forum). All Rights Reserved.</p>
+                <p class="mt-2 md:mt-0">자발적 참여와 수평적 운영을 지향합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Participation Modal -->
+    <div id="joinModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal('joinModal')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">시민의회 참가 신청</h3>
+                <p class="text-xs text-slate-500 mt-1">경기도민 누구나 시민의원으로 참여하실 수 있습니다.</p>
+            </div>
+
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">성함</label>
+                    <input type="text" required placeholder="홍길동" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">연락처</label>
+                    <input type="tel" required placeholder="010-0000-0000" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">거주 지역 (경기도 시/군)</label>
+                    <select class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        <option>수원시</option>
+                        <option>성남시</option>
+                        <option>고양시</option>
+                        <option>용인시</option>
+                        <option>부천시</option>
+                        <option>안양시</option>
+                        <option>광명시</option>
+                        <option>기타 경기도 시/군</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">참여 희망 분야</label>
+                    <textarea placeholder="관심 있는 지역 이슈나 참여 포부를 적어주세요." rows="3" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-lg shadow-sky-600/20 text-sm transition mt-2">
+                    신청서 제출하기
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Modal Handler Functions
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Form Submission Notification (Replacing Alert)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            closeModal('joinModal');
+            
+            // Custom toast style message
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 right-5 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-3 animate-bounce';
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+                <div>
+                    <div class="font-bold text-sm">신청이 완료되었습니다!</div>
+                    <div class="text-xs text-slate-300">사무국에서 확인 후 곧 연락드리겠습니다.</div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
